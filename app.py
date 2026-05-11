@@ -18,7 +18,7 @@ class ReceiptData(BaseModel):
 app = Flask(__name__)
 CORS(app)
 # Configure AI model
-genai.configure(api_key="AIzaSyBXk_W8sA3yWMG4VzQJ1LNGf1nMQ2N6uNk") # Enter Gemini API key
+genai.configure(api_key="AIzaSyCad2gLdkBx9KMWHTRMxgJIg3zg-eAIC5I") # Enter Gemini API key
 client = genai.GenerativeModel(
   model_name="gemini-3-flash-preview",
   generation_config={
