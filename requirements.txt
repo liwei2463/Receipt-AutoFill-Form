@@ -4,3 +4,4 @@ google-generativeai
 pydantic
 Pillow
 gunicorn
+python-dotenv

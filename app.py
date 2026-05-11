@@ -1,11 +1,13 @@
 # %pip install google-generativeai -q
 # %pip install flask -q
 # %pip install flask_cors -q
+# %pip install dotenv -q
 import os, io, json, csv
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import google.generativeai as genai
 from pydantic import BaseModel
+from dotenv import load_dotenv
 import PIL.Image
 
 # Define data structure
@@ -17,8 +19,12 @@ class ReceiptData(BaseModel):
 
 app = Flask(__name__)
 CORS(app)
+load_dotenv()  # This only work locally, Cloud will ignore it
+api_key = os.getenv("GEMINI_API_KEY")  # Get API key from the Environment
+if not api_key:
+  raise ValueError("GEMINI_API_KEY is not set!")
 # Configure AI model
-genai.configure(api_key="AIzaSyCad2gLdkBx9KMWHTRMxgJIg3zg-eAIC5I") # Enter Gemini API key
+genai.configure(api_key=api_key) # Enter Gemini API key
 client = genai.GenerativeModel(
   model_name="gemini-3-flash-preview",
   generation_config={
