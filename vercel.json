@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "python-backend.ipynb",
+      "src": "app.py", 
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "destination": "python-backend.ipynb"
+      "destination": "app.py"
     }
   ]
 }
