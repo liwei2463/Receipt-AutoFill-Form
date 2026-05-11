@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <title>Receipt Autofill</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      *{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .app-container{
+        position: relative; top: 15%; 
+        display: flex; flex-direction: column;
+        width: fit-content; 
+        margin: auto; 
+        border: 2px outset black; border-radius: 12px;
+        padding: 10px;
+      }
+      #receipt-autofill{
+        display: flex; flex-direction: column;
+        gap: 10px;
+        margin: 0;
+      }
+      .input-field{
+        display: flex;
+        flex-direction: column;
+      }
+      .input-field > label{
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+    </style>
+    <script>  
+      $(document).ready(function(){
+        $("#upload-image").on("change", function(){
+          var receiptImg = $("#upload-image")[0].files[0];
+          if (!receiptImg) {
+            alert("Please upload an image!");
+            return;
+          }
+          var formData = new FormData();
+          formData.append("receiptFile", receiptImg);
+          $.ajax({
+              url: "http://127.0.0.1:5000/upload",
+              type: "POST",
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function(response) {
+                console.log("Success:", response);
+                $("#merchant_name").val(response.merchant_name);
+                // Format to YYYY-MM-DDTHH:mm
+                const formatDate = new Date(response.date_time).toISOString().slice(0, 16); 
+                $("#receipt-date").val(formatDate);
+                $("#currency").val(response.currency);
+                $("#amount").val(response.amount);
+              }, error: function(xhr) {
+                alert("Error: " + xhr.responseText);
+              }
+          });
+        });
+        $("#submit-btn").on("click", function(){
+            let record = {
+              merchant_name: $("#merchant_name").val(),
+              receipt_date: $("#receipt-date").val(),
+              currency: $("#currency").val(),
+              amount: $("#amount").val()
+            };
+            $.ajax({
+              url: "http://127.0.0.1:5000/save",
+              type: "POST",
+              contentType: "application/json",
+              data: JSON.stringify(record),
+              success: function () {
+                alert("Receipts data saved to CSV!");
+              }, error: function(xhr) {
+                alert("Error!! Please submit again.");
+              }
+            });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="app-container">
+      <h1 style="margin-top: 0; font-size: 27px;">Receipt Autofill</h1>
+      <form id="receipt-autofill">
+        <div class="input-field">
+          <label for="upload-image">Upload Image</label>
+          <input type="file" style="width: fit-content; align-self: flex-end;" 
+          id="upload-image" accept="image/*" required/>
+        </div>
+        <div class="input-field">
+          <label for="merchant_name">Merchant Name</label>
+          <input type="text" id="merchant_name"/>
+        </div>
+        <div class="input-field">
+          <label for="receipt-date">Date</label>
+          <input type="datetime-local" id="receipt-date"/>
+        </div>
+        <div style="display: flex; flex-direction: row; gap: 10px;">
+          <div class="input-field">
+            <label for="currency">Currency</label>
+            <select id="currency">
+              <option value=""></option>
+              <option value="USD">$</option>
+              <option value="MYR">RM</option>
+              <option value="SGD">S$</option>
+              <option value="RMB">￥</option>
+              <option value="NA">N/A</option>
+            </select>
+          </div>
+          <div class="input-field">
+            <label for="amount">Total amount</label>
+            <input type="number" id="amount" min="0" size="3"/>
+          </div>
+        </div>
+        <input type="submit" value="Submit" id="submit-btn"/>
+      </form>
+    </div>
+  </body>
+</html>
