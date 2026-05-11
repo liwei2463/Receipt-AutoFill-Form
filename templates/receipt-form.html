@@ -39,7 +39,7 @@
           var formData = new FormData();
           formData.append("receiptFile", receiptImg);
           $.ajax({
-              url: "http://127.0.0.1:5000/upload",
+              url: "/upload",
               type: "POST",
               data: formData,
               processData: false,
@@ -65,7 +65,7 @@
               amount: $("#amount").val()
             };
             $.ajax({
-              url: "http://127.0.0.1:5000/save",
+              url: "/save",
               type: "POST",
               contentType: "application/json",
               data: JSON.stringify(record),
