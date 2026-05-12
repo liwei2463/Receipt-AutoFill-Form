@@ -1,4 +1,4 @@
-# Receipt AutoFill Web App
+# Receipt AutoFill Web Form App
 A web application that extracts receipt image data using Gemini API and automatically fills a form.
 
 ## Demo
@@ -6,29 +6,39 @@ A web application that extracts receipt image data using Gemini API and automati
 
 ## Features
 * Upload receipt image
-* Extract data using Gemini API<br>
-  > prompt = "Extract the following from the receipt:
-  >  - merchant_name
-  >  - date_time
-  >  - currency: Convert symbols to codes (e.g., '$' to 'USD', 'RM' to 'MYR', 'S$' to 'SGD'). Use 'NA' if unknown.
-  >  - amount: The total paid as a number."
+* Extract data using Gemini API
   - Merchant Name
   - Date Time
   - Currency
   - Amount
-* Automatically fill form fields
+  ```python
+  prompt = "Extract the following from the receipt:
+    - merchant_name
+    - date_time
+    - currency: Convert symbols to codes (e.g., '$' to 'USD', 'RM' to 'MYR', 'S$' to 'SGD'). Use 'NA' if unknown.
+    - amount: The total paid as a number."
+  ```
+* Automatically fill web form fields
 * Save data to CSV
 
 ## Installation
-1. Clone the repository<br>
-   git clone  https://github.com/liwei2463/Receipt-AutoFill-Form/<br>
-   cd Receipt-AutoFill-Form<br>
+1. Clone the repository
+   ```bash
+   git clone  https://github.com/liwei2463/Receipt-AutoFill-Form/
+   cd "[file path to Receipt-AutoFill-Form]"
+   ```
 
-2. Install dependencies<br>
-   pip install -r requirements.txt<br>
+2. Install dependencies
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3. Set environment variables<br>
-   GEMINI_API_KEY=your_api_key<br>
+3. Create .env file, Set environment variables
+   ```env
+   GEMINI_API_KEY=your_api_key
+   ```
 
-4. Run the app<br>
-   python app.py<br>
+4. Run the app
+   ```bash
+   python app.py
+   ```
