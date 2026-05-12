@@ -16,14 +16,14 @@ A web application that extracts receipt image data using Gemini API and automati
 
 ## Installation
 1. Clone the repository
-git clone  https://github.com/liwei2463/Receipt-AutoFill-Form/
-cd Receipt-AutoFill-Form
+   git clone  https://github.com/liwei2463/Receipt-AutoFill-Form/
+   cd Receipt-AutoFill-Form
 
 2. Install dependencies
-pip install -r requirements.txt
+   pip install -r requirements.txt
 
 3. Set environment variables
-GEMINI_API_KEY=your_api_key
+   GEMINI_API_KEY=your_api_key
 
 4. Run the app
-python app.py
+   python app.py
