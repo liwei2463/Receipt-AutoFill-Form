@@ -6,7 +6,12 @@ A web application that extracts receipt image data using Gemini API and automati
 
 ## Features
 * Upload receipt image
-* Extract data using Gemini API
+* Extract data using Gemini API<br>
+  prompt = "Extract the following from the receipt:
+    - merchant_name
+    - date_time
+    - currency: Convert symbols to codes (e.g., '$' to 'USD', 'RM' to 'MYR', 'S$' to 'SGD'). Use 'NA' if unknown.
+    - amount: The total paid as a number."
   - Merchant Name
   - Date Time
   - Currency
