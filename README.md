@@ -1,7 +1,5 @@
 # Receipt AutoFill Web Form App
 A web application that extracts receipt image data using Gemini API and automatically fills a form.
-
-## Demo
 <img width="1917" height="968" alt="image" src="https://github.com/user-attachments/assets/4ce425b5-96fd-483d-8821-193969976d32" />
 
 ## Features
